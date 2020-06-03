@@ -1,7 +1,8 @@
-package com.jvmori.openweather
+package com.jvmori.openweather.common.presentation.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.jvmori.openweather.R
 
 class MainActivity : AppCompatActivity() {
 
