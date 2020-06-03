@@ -6,9 +6,11 @@ import com.jvmori.openweather.currentWeather.data.local.CurrentWeatherLocalDataS
 import com.jvmori.openweather.currentWeather.data.network.CurrentWeatherApi
 import com.jvmori.openweather.currentWeather.data.network.CurrentWeatherRemoteDataSourceImpl
 import com.jvmori.openweather.currentWeather.data.repositories.CurrentWeatherRepositoryImpl
+import com.jvmori.openweather.currentWeather.data.usecases.FetchWeatherListUseCaseImpl
 import com.jvmori.openweather.currentWeather.domain.repositories.CurrentWeatherLocalDataSource
 import com.jvmori.openweather.currentWeather.domain.repositories.CurrentWeatherRemoteDataSource
 import com.jvmori.openweather.currentWeather.domain.repositories.CurrentWeatherRepository
+import com.jvmori.openweather.currentWeather.domain.usecases.FetchWeatherListUseCase
 import com.jvmori.openweather.currentWeather.presentation.viewmodels.CurrentWeatherViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -20,5 +22,6 @@ val currentWeatherModule = module {
     single<CurrentWeatherLocalDataSource> { CurrentWeatherLocalDataSourceImpl(dao = get()) }
     single<CurrentWeatherRemoteDataSource> { CurrentWeatherRemoteDataSourceImpl(weatherApi = get()) }
     single<CurrentWeatherRepository> { CurrentWeatherRepositoryImpl(localDataSource = get(), remoteDataSource = get()) }
-    viewModel { CurrentWeatherViewModel(repository = get()) }
+    single<FetchWeatherListUseCase> { FetchWeatherListUseCaseImpl(repository = get()) }
+    viewModel { CurrentWeatherViewModel(fetchWeatherListUseCase = get()) }
 }
