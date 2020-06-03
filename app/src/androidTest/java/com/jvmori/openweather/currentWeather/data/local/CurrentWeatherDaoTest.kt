@@ -30,6 +30,17 @@ class CurrentWeatherDaoTest : KoinTest {
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Test
+    fun when_database_is_empty_return_np_results() {
+        runBlocking {
+            //Act
+            dao.getAllWeather().map {
+                //Arrange
+                assertTrue(it.isEmpty())
+            }
+        }
+    }
+
+    @Test
     fun when_saving_data_successfully_then_get_data_returns_success() {
         runBlocking {
             //Arrange
