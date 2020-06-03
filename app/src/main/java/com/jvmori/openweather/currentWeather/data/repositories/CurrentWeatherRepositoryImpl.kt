@@ -30,6 +30,7 @@ class CurrentWeatherRepositoryImpl(
 
     override fun fetchAllWeather(): Flow<Resource<List<CurrentWeatherEntity>>> {
         return try {
+            Resource.loading(null)
             localDataSource.fetchAllWeather().map { weatherList ->
                 if (weatherList.isEmpty()){
                     defaultCities.forEach { city ->
