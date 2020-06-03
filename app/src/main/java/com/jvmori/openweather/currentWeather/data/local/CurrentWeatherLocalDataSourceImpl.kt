@@ -1,33 +1,22 @@
 package com.jvmori.openweather.currentWeather.data.local
 
 import com.jvmori.openweather.currentWeather.domain.repositories.CurrentWeatherLocalDataSource
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.withContext
 
-class CurrentWeatherLocalDataSourceImpl :
-    CurrentWeatherLocalDataSource {
-
-    private val cities = listOf<String>("Gdańsk", "Warszawa", "Kraków", "Wrocław", "Łódź")
-
-    override suspend fun fetchCurrentWeather(city: String): Flow<CurrentWeatherData> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+class CurrentWeatherLocalDataSourceImpl(
+    private val dao: CurrentWeatherDao
+) : CurrentWeatherLocalDataSource {
 
     override fun fetchAllWeather(): Flow<List<CurrentWeatherData>> {
-       return flow {
-           listOf(
-               CurrentWeatherData("Gdańsk", "", 0.00f)
-           )
-       }
+        return dao.getAllWeather().flowOn(Dispatchers.IO)
     }
 
     override suspend fun saveCurrentWeather(data: CurrentWeatherData) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override suspend fun saveAllWeather(data: List<CurrentWeatherData>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        withContext(Dispatchers.IO) {
+            dao.insert(data)
+        }
     }
 }
