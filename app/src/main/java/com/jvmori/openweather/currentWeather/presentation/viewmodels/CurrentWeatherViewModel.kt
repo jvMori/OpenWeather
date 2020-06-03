@@ -11,7 +11,7 @@ class CurrentWeatherViewModel(
     private val repository: CurrentWeatherRepository
 ) : ViewModel() {
 
-    fun fetchWeather(): LiveData<Resource<CurrentWeatherEntity>> {
+    fun fetchWeather(): LiveData<Resource<List<CurrentWeatherEntity>>> {
         return repository.fetchAllWeather().asLiveData()
     }
 }

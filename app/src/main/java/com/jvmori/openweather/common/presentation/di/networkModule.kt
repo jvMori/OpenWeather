@@ -14,7 +14,7 @@ val networkModule = module {
 
 fun provideRetrofit(client: OkHttpClient): Retrofit {
     return Retrofit.Builder()
-        .baseUrl("api.openweathermap.org/data/2.5/")
+        .baseUrl("https://api.openweathermap.org/data/2.5/")
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .build()

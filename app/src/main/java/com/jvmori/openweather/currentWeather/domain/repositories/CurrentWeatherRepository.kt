@@ -5,7 +5,6 @@ import com.jvmori.openweather.currentWeather.domain.entities.CurrentWeatherEntit
 import kotlinx.coroutines.flow.Flow
 
 interface CurrentWeatherRepository {
-    suspend fun fetchDefaultWeather(): Resource<String>
     suspend fun fetchNewWeather(city: String): Resource<String>
     fun fetchAllWeather(): Flow<Resource<List<CurrentWeatherEntity>>>
     suspend fun refreshCurrentWeatherList(): Resource<String>

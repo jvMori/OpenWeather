@@ -17,22 +17,7 @@ class CurrentWeatherRepositoryImpl(
     private val remoteDataSource: CurrentWeatherRemoteDataSource
 ) : CurrentWeatherRepository {
 
-    private val cities = listOf("Gdańsk", "Warszawa", "Kraków", "Wrocław", "Łódź")
-
-    override suspend fun fetchDefaultWeather(): Resource<String> {
-        return try {
-            localDataSource.fetchAllWeather().map {
-                if (it.isEmpty()) {
-                    cities.forEach { city ->
-                        fetchFromNetworkAndSave(city)
-                    }
-                }
-            }
-            Resource.success("")
-        } catch (e: Exception) {
-            handleError(e)
-        }
-    }
+    private val defaultCities = listOf("Gdańsk", "Warszawa", "Kraków", "Wrocław", "Łódź")
 
     override suspend fun fetchNewWeather(city: String): Resource<String> {
         return try {
@@ -45,8 +30,13 @@ class CurrentWeatherRepositoryImpl(
 
     override fun fetchAllWeather(): Flow<Resource<List<CurrentWeatherEntity>>> {
         return try {
-            localDataSource.fetchAllWeather().map {
-                Resource.success(mapLocalListToEntity(it))
+            localDataSource.fetchAllWeather().map { weatherList ->
+                if (weatherList.isEmpty()){
+                    defaultCities.forEach { city ->
+                        fetchFromNetworkAndSave(city)
+                    }
+                }
+                Resource.success(mapLocalListToEntity(weatherList))
             }
         } catch (e: Exception) {
             flowOf(handleError(e))
