@@ -3,7 +3,7 @@ package com.jvmori.openweather.currentWeather.data.repositories
 import com.jvmori.openweather.common.data.Resource
 import com.jvmori.openweather.common.data.handleError
 import com.jvmori.openweather.currentWeather.data.local.CurrentWeatherData
-import com.jvmori.openweather.currentWeather.data.network.CurrentWeatherResponse
+import com.jvmori.openweather.currentWeather.data.network.response.CurrentWeatherResponse
 import com.jvmori.openweather.currentWeather.domain.entities.CurrentWeatherEntity
 import com.jvmori.openweather.currentWeather.domain.repositories.CurrentWeatherLocalDataSource
 import com.jvmori.openweather.currentWeather.domain.repositories.CurrentWeatherRemoteDataSource
@@ -74,7 +74,10 @@ class CurrentWeatherRepositoryImpl(
 
     private fun mapRemoteToLocal(remote: CurrentWeatherResponse): CurrentWeatherData {
         return CurrentWeatherData(
-            remote.city
+            remote.weatherId,
+            remote.cityName,
+            remote.weather[0].icon,
+            remote.main.temp
         )
     }
 
