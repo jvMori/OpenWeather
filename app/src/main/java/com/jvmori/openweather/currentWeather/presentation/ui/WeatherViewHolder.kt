@@ -16,6 +16,7 @@ class WeatherViewHolder(
 
     fun bind(item: CurrentWeatherEntity) {
         binding.weather = item
+        binding.executePendingBindings()
     }
 
     companion object {

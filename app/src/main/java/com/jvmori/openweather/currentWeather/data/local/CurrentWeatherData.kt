@@ -3,6 +3,7 @@ package com.jvmori.openweather.currentWeather.data.local
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.concurrent.locks.Condition
 
 @Entity(tableName = "current_weather")
 data class CurrentWeatherData(
@@ -13,6 +14,9 @@ data class CurrentWeatherData(
 
     @ColumnInfo(name = "city_name")
     var city: String,
+
+    @ColumnInfo(name = "condition")
+    var condition: String,
 
     @ColumnInfo(name = "icon_url")
     var iconUrl: String = "",

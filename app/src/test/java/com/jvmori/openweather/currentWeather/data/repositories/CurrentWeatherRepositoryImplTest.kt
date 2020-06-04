@@ -36,8 +36,8 @@ class CurrentWeatherRepositoryImplTest {
         //Arrange
         val cities = listOf("Gdańsk", "Warszawa")
         val localData = listOf(
-            CurrentWeatherData(1, cities[0]),
-            CurrentWeatherData(2, cities[1])
+            CurrentWeatherData(1, cities[0], ""),
+            CurrentWeatherData(2, cities[1], "")
         )
 
         //Act
@@ -46,7 +46,7 @@ class CurrentWeatherRepositoryImplTest {
         )
 
         repository.fetchAllWeather().map {
-            val city: List<CurrentWeatherEntity> = it.data ?: listOf(CurrentWeatherEntity("", "", 0.00))
+            val city: List<CurrentWeatherEntity> = it.data ?: listOf(CurrentWeatherEntity("", "", "",0))
             assert(it.status == Resource.success(localData))
             assert(city[0].city == cities[0])
         }
@@ -55,7 +55,7 @@ class CurrentWeatherRepositoryImplTest {
     @Test
     fun `when fetching all saved weather successfully then return success`() {
         //Arrange
-        val localData = listOf(CurrentWeatherData(1, ""))
+        val localData = listOf(CurrentWeatherData(1, "", ""))
 
         //Act
         Mockito.`when`(localDataSource.fetchAllWeather()).thenReturn(

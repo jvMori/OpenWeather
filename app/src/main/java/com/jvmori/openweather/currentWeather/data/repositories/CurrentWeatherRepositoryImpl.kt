@@ -32,7 +32,7 @@ class CurrentWeatherRepositoryImpl(
         return try {
             Resource.loading(null)
             localDataSource.fetchAllWeather().map { weatherList ->
-                if (weatherList.isEmpty()){
+                if (weatherList.isEmpty()) {
                     defaultCities.forEach { city ->
                         fetchFromNetworkAndSave(city)
                     }
@@ -67,6 +67,7 @@ class CurrentWeatherRepositoryImpl(
         return CurrentWeatherData(
             remote.weatherId,
             remote.cityName,
+            remote.weather[0].main,
             remote.weather[0].icon,
             remote.main.temp
         )
@@ -74,7 +75,7 @@ class CurrentWeatherRepositoryImpl(
 
     private fun mapLocalListToEntity(local: List<CurrentWeatherData>): List<CurrentWeatherEntity> {
         return local.map {
-            CurrentWeatherEntity(it.city, it.iconUrl, it.temperature)
+            CurrentWeatherEntity(it.city, it.condition, it.iconUrl, it.temperature.toInt())
         }
     }
 

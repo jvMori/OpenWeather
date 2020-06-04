@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.jvmori.openweather.common.data.Resource
 import com.jvmori.openweather.currentWeather.domain.entities.CurrentWeatherEntity
+import com.jvmori.openweather.currentWeather.domain.usecases.FetchNewWeatherUseCase
 import com.jvmori.openweather.currentWeather.domain.usecases.FetchWeatherListUseCase
 import com.jvmori.openweather.util.TestCoroutineRule
 import kotlinx.coroutines.flow.flowOf
@@ -29,18 +30,21 @@ class CurrentWeatherViewModelTest {
     @Mock
     private lateinit var useCase: FetchWeatherListUseCase
 
+    @Mock
+    private lateinit var addUseCase: FetchNewWeatherUseCase
+
     private lateinit var viewModel: CurrentWeatherViewModel
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        viewModel = CurrentWeatherViewModel(useCase)
+        viewModel = CurrentWeatherViewModel(useCase, addUseCase)
     }
 
     @Test
     fun givenServerResponse200_whenFetch_shouldReturnSuccess() {
         testCoroutineRule.runBlockingTest {
-            val inputData = listOf(CurrentWeatherEntity("", "", 0.00))
+            val inputData = listOf(CurrentWeatherEntity("", "", "",0))
             val success = Resource.success(inputData)
             doReturn(flowOf(success))
                 .`when`(useCase)
