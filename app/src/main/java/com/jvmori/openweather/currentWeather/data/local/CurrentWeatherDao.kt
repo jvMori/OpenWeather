@@ -2,6 +2,7 @@ package com.jvmori.openweather.currentWeather.data.local
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
@@ -10,6 +11,6 @@ interface CurrentWeatherDao {
     @Query("Select * from current_weather ORDER BY timestamp ASC")
     fun getAllWeather(): Flow<List<CurrentWeatherData>>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(data: CurrentWeatherData)
 }

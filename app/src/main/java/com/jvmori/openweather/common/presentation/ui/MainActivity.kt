@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.google.android.material.snackbar.Snackbar
 import com.jvmori.openweather.R
 import com.jvmori.openweather.common.data.Resource
 import com.jvmori.openweather.currentWeather.presentation.viewmodels.CurrentWeatherViewModel
@@ -33,5 +34,12 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+        button.setOnClickListener {
+            viewModel.addNewWeather("Gdynia")
+        }
+        viewModel.status.observe(this, Observer {
+            Snackbar.make(findViewById(R.id.button), it.toString(), Snackbar.LENGTH_LONG).show()
+        })
     }
+
 }
