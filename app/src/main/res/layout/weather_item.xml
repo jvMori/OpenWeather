@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="com.jvmori.openweather.currentWeather.domain.entities.CurrentWeatherEntity"/>
+        <variable name="Weather" type="CurrentWeatherEntity"/>
+    </data>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    </LinearLayout>
+</layout>
