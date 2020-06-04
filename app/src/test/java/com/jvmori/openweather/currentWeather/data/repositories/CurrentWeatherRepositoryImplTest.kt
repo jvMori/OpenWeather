@@ -41,7 +41,7 @@ class CurrentWeatherRepositoryImplTest {
         )
 
         //Act
-        Mockito.`when`(localDataSource.fetchAllWeather()).thenReturn(
+        Mockito.`when`(localDataSource.observeAllWeather()).thenReturn(
             flowOf(listOf())
         )
 
@@ -58,7 +58,7 @@ class CurrentWeatherRepositoryImplTest {
         val localData = listOf(CurrentWeatherData(1, "", ""))
 
         //Act
-        Mockito.`when`(localDataSource.fetchAllWeather()).thenReturn(
+        Mockito.`when`(localDataSource.observeAllWeather()).thenReturn(
             flowOf(localData)
         )
 
@@ -71,7 +71,7 @@ class CurrentWeatherRepositoryImplTest {
     @Test
     fun `when fetching all saved weather not successfully then return error`() {
         //Act
-        Mockito.`when`(localDataSource.fetchAllWeather()).thenAnswer {
+        Mockito.`when`(localDataSource.observeAllWeather()).thenAnswer {
             throw Exception()
         }
 

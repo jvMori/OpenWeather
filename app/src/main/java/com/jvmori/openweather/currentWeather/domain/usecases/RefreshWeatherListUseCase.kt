@@ -1,7 +1,7 @@
 package com.jvmori.openweather.currentWeather.domain.usecases
 
-import com.jvmori.openweather.currentWeather.domain.entities.CurrentWeatherEntity
+import com.jvmori.openweather.common.data.Resource
 
 interface RefreshWeatherListUseCase {
-    suspend fun refreshCurrentWeatherList(): List<CurrentWeatherEntity>
+    suspend fun refreshCurrentWeatherList(): Resource<String>
 }

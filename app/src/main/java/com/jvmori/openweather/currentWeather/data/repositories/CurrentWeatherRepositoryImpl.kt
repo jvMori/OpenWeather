@@ -31,7 +31,7 @@ class CurrentWeatherRepositoryImpl(
     override fun fetchAllWeather(): Flow<Resource<List<CurrentWeatherEntity>>> {
         return try {
             Resource.loading(null)
-            localDataSource.fetchAllWeather().map { weatherList ->
+            localDataSource.observeAllWeather().map { weatherList ->
                 if (weatherList.isEmpty()) {
                     defaultCities.forEach { city ->
                         fetchFromNetworkAndSave(city)
@@ -46,10 +46,9 @@ class CurrentWeatherRepositoryImpl(
 
     override suspend fun refreshCurrentWeatherList(): Resource<String> {
         return try {
-            localDataSource.fetchAllWeather().map {
-                it.forEach { weather ->
-                    fetchFromNetworkAndSave(weather.city)
-                }
+            Resource.loading("")
+            localDataSource.getAllWeather().map {
+                fetchFromNetworkAndSave(it.city)
             }
             Resource.success("")
         } catch (e: Exception) {
@@ -78,5 +77,4 @@ class CurrentWeatherRepositoryImpl(
             CurrentWeatherEntity(it.city, it.condition, it.iconUrl, it.temperature.toInt())
         }
     }
-
 }

@@ -5,7 +5,6 @@ import androidx.room.Room
 import com.jvmori.openweather.common.data.WeatherDatabase
 import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.asExecutor
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import org.junit.Before
@@ -33,7 +32,7 @@ class CurrentWeatherDaoTest : KoinTest {
     fun when_database_is_empty_return_np_results() {
         runBlocking {
             //Act
-            dao.getAllWeather().map {
+            dao.observeAllWeather().map {
                 //Arrange
                 assertTrue(it.isEmpty())
             }
@@ -48,7 +47,7 @@ class CurrentWeatherDaoTest : KoinTest {
 
             //Act
             dao.insert(weather)
-            dao.getAllWeather().map {
+            dao.observeAllWeather().map {
 
                 //Arrange
                 assertTrue(it.isNotEmpty())
