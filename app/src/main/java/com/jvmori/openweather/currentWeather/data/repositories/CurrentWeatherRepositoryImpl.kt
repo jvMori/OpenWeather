@@ -67,7 +67,7 @@ class CurrentWeatherRepositoryImpl(
         return CurrentWeatherData(
             remote.weatherId,
             remote.cityName,
-            remote.weather[0].main,
+            remote.weather[0].description,
             remote.weather[0].icon,
             remote.main.temp
         )
