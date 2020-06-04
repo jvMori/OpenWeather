@@ -41,6 +41,7 @@ class CurrentWeatherViewModel(
 
     fun initDefaultWeather() {
         viewModelScope.launch {
+            _status.value = Resource.loading(Actions.InitDefaultWeather)
             _status.value = initDefaultWeatherUseCase.initDefaultWeather()
         }
     }

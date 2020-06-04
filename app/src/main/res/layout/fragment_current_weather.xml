@@ -15,11 +15,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:visibility="visible"/>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-        <FrameLayout android:background="@color/colorGray"
+        <FrameLayout android:background="#fff"
                      android:layout_width="match_parent"
                      android:layout_height="match_parent" android:id="@+id/info"
                      app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-                     app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent">
+                     app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                     android:visibility="visible">
             <ProgressBar android:layout_width="match_parent"
                          android:layout_gravity="center"
                          android:layout_height="wrap_content" android:visibility="visible"
@@ -29,7 +30,7 @@
                 android:background="#fff"
                 android:id="@+id/errorLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent" android:visibility="gone">
             <TextView
                     android:text="@string/init_error_message"
                     android:layout_width="match_parent"
