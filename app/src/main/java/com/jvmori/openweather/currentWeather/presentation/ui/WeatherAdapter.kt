@@ -8,7 +8,7 @@ import com.jvmori.openweather.R
 import com.jvmori.openweather.currentWeather.domain.entities.CurrentWeatherEntity
 
 class WeatherAdapter(
-    private val items: List<CurrentWeatherEntity>
+    private var items: List<CurrentWeatherEntity>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -17,6 +17,11 @@ class WeatherAdapter(
             R.layout.add_weather_item -> AddWeatherViewHolder.create(parent)
             else -> throw IllegalArgumentException("unknown view type $viewType")
         }
+    }
+
+    fun submitList(items : List<CurrentWeatherEntity>){
+        this.items = items
+        notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
