@@ -7,4 +7,9 @@
     <string name="weather_success_refresh">Zaktualizowano pogodę!</string>
     <string name="weather_failed_refresh">Nie udało się zaktualizować pogody!</string>
     <string name="read_weather_fail">Nie udało się wczytać pogody!</string>
+    <string name="searching">Wyszukaj miasto...</string>
+    <string name="search">Szukaj</string>
+    <string name="search_city">Prognoza pogody</string>
+    <string name="cancel">ZAMKNIJ</string>
+    <string name="add">DODAJ</string>
 </resources>

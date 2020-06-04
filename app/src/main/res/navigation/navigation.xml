@@ -5,5 +5,14 @@
 
     <fragment android:id="@+id/currentWeatherFragment"
               android:name="com.jvmori.openweather.currentWeather.presentation.ui.CurrentWeatherFragment"
-              android:label="CurrentWeatherFragment"/>
+              android:label="CurrentWeatherFragment">
+        <action android:id="@+id/action_currentWeatherFragment_to_addNewCityDialog"
+                app:destination="@id/addNewCityDialog"/>
+    </fragment>
+    <dialog android:id="@+id/addNewCityDialog"
+              android:name="com.jvmori.openweather.currentWeather.presentation.ui.AddNewCityDialog"
+              android:label="AddNewCityDialog">
+        <action android:id="@+id/action_addNewCityDialog_to_currentWeatherFragment"
+                app:destination="@id/currentWeatherFragment"/>
+    </dialog>
 </navigation>

@@ -9,12 +9,12 @@ import com.jvmori.openweather.databinding.AddWeatherItemBinding
 
 class AddWeatherViewHolder(private val binding: AddWeatherItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    var onClickListener: ((position: Int) -> Unit)? = null
+    var onClickListener: (() -> Unit)? = null
 
-    fun bind(position: Int) {
-//        binding.button.setOnClickListener {
-//            onClickListener?.invoke(position)
-//        }
+    fun bind() {
+        binding.addBtn.setOnClickListener {
+            onClickListener?.invoke()
+        }
     }
 
     companion object {

@@ -7,7 +7,7 @@ import com.jvmori.openweather.currentWeather.data.local.CurrentWeatherDao
 import com.jvmori.openweather.currentWeather.data.local.CurrentWeatherData
 import org.koin.dsl.module
 
-@Database(entities = [CurrentWeatherData::class], version = 4, exportSchema = false)
+@Database(entities = [CurrentWeatherData::class], version = 5, exportSchema = false)
 abstract class WeatherDatabase : RoomDatabase() {
     abstract fun currentWeatherDao(): CurrentWeatherDao
 }

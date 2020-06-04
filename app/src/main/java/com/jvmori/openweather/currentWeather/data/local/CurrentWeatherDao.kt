@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CurrentWeatherDao {
-    @Query("Select * from current_weather ORDER BY city_name ASC")
+    @Query("Select * from current_weather ORDER BY timestamp ASC")
     fun observeAllWeather(): Flow<List<CurrentWeatherData>>
 
     @Query("Select * from current_weather ORDER BY city_name ASC")

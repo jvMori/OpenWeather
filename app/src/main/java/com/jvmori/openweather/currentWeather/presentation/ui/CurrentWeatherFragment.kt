@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.jvmori.openweather.R
 import com.jvmori.openweather.common.data.Actions
@@ -12,13 +13,14 @@ import com.jvmori.openweather.common.presentation.ui.BindingFragment
 import com.jvmori.openweather.currentWeather.presentation.viewmodels.CurrentWeatherViewModel
 import com.jvmori.openweather.databinding.FragmentCurrentWeatherBinding
 import kotlinx.android.synthetic.main.fragment_current_weather.*
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class CurrentWeatherFragment : BindingFragment(R.layout.fragment_current_weather) {
 
     private lateinit var currentWeatherBinding: FragmentCurrentWeatherBinding
-    private val viewModel: CurrentWeatherViewModel by viewModel()
+    private val viewModel: CurrentWeatherViewModel by sharedViewModel<CurrentWeatherViewModel>()
     private lateinit var adapter: WeatherAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,12 +64,16 @@ class CurrentWeatherFragment : BindingFragment(R.layout.fragment_current_weather
     private fun setupOnWeatherClickListeners() {
         adapter.apply {
             onAddButtonClickListener = {
-                viewModel.addNewWeather("Katowice")
+                openDialog()
             }
             onWeatherClickListener = {
 
             }
         }
+    }
+
+    private fun openDialog(){
+        findNavController().navigate(R.id.action_currentWeatherFragment_to_addNewCityDialog)
     }
 
     private fun swipeToRefreshListener() {

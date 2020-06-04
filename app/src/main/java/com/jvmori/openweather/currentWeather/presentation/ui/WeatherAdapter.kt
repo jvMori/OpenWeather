@@ -13,7 +13,7 @@ class WeatherAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var onWeatherClickListener : ((position: Int) -> Unit)? = null
-    var onAddButtonClickListener : ((position: Int) -> Unit)? = null
+    var onAddButtonClickListener : (() -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -33,7 +33,7 @@ class WeatherAdapter(
             }
             R.layout.add_weather_item -> {
                 (holder as AddWeatherViewHolder).apply {
-                    bind(position)
+                    bind()
                     onClickListener = onAddButtonClickListener
                 }
             }
