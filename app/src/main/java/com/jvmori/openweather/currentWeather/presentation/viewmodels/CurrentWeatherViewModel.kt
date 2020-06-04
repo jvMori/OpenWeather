@@ -21,6 +21,7 @@ class CurrentWeatherViewModel(
 
     fun addNewWeather(city: String) {
         viewModelScope.launch {
+            _status.value = Resource.Status.LOADING
             _status.value = addNewWeatherUseCase.fetchCurrentWeather(city).status ?: Resource.Status.LOADING
         }
     }
