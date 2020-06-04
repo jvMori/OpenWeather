@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.jvmori.openweather.common.data.WeatherDatabase
 import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.asExecutor
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import org.junit.Before
@@ -43,7 +44,7 @@ class CurrentWeatherDaoTest : KoinTest {
     fun when_saving_data_successfully_then_get_data_returns_success() {
         runBlocking {
             //Arrange
-            val weather = CurrentWeatherData(1, "")
+            val weather = CurrentWeatherData(1, "", "")
 
             //Act
             dao.insert(weather)
