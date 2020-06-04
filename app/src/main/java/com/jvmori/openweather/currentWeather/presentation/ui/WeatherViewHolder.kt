@@ -12,6 +12,8 @@ class WeatherViewHolder(
     private val binding: WeatherItemBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
+    var onClickListener: ((position: Int) -> Unit)? = null
+
     fun bind(item: CurrentWeatherEntity) {
         binding.weather = item
     }

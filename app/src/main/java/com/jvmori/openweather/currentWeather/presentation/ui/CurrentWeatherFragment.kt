@@ -35,5 +35,13 @@ class CurrentWeatherFragment : BindingFragment(R.layout.fragment_current_weather
                 Resource.Status.SUCCESS -> adapter.submitList(it.data ?: listOf())
             }
         })
+        adapter.apply {
+            onAddButtonClickListener = {
+                viewModel.addNewWeather("Katowice")
+            }
+            onWeatherClickListener = {
+
+            }
+        }
     }
 }

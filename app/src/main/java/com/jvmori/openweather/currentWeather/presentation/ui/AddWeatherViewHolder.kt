@@ -7,9 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jvmori.openweather.R
 import com.jvmori.openweather.databinding.AddWeatherItemBinding
 
-class AddWeatherViewHolder(binding: AddWeatherItemBinding) : RecyclerView.ViewHolder(binding.root) {
+class AddWeatherViewHolder(private val binding: AddWeatherItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(){}
+    var onClickListener: ((position: Int) -> Unit)? = null
+
+    fun bind(position: Int) {
+        binding.button.setOnClickListener {
+            onClickListener?.invoke(position)
+        }
+    }
 
     companion object {
         fun create(parent: ViewGroup): AddWeatherViewHolder {
