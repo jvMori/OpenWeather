@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import com.google.android.material.snackbar.Snackbar
 import com.jvmori.openweather.R
+import com.jvmori.openweather.common.data.Actions
 import com.jvmori.openweather.common.data.Resource
 import com.jvmori.openweather.common.presentation.ui.BindingFragment
 import com.jvmori.openweather.currentWeather.presentation.viewmodels.CurrentWeatherViewModel
@@ -19,6 +21,10 @@ class CurrentWeatherFragment : BindingFragment(R.layout.fragment_current_weather
     private val viewModel: CurrentWeatherViewModel by viewModel()
     private lateinit var adapter: WeatherAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.initDefaultWeather()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,13 +41,19 @@ class CurrentWeatherFragment : BindingFragment(R.layout.fragment_current_weather
         observeWeatherList()
         setupOnWeatherClickListeners()
         swipeToRefreshListener()
+        showFailMessageIfNeeded()
     }
-
     private fun observeWeatherList() {
         viewModel.fetchWeather().observe(this, Observer {
             when (it.status) {
+                Resource.Status.LOADING -> showProgressBar()
                 Resource.Status.SUCCESS -> {
                     adapter.submitList(it.data ?: listOf())
+                    hideProgressBar()
+                }
+                Resource.Status.ERROR, Resource.Status.NETWORKERROR -> {
+                    hideProgressBar()
+                    showErrorMessage()
                 }
             }
         })
@@ -60,19 +72,58 @@ class CurrentWeatherFragment : BindingFragment(R.layout.fragment_current_weather
 
     private fun swipeToRefreshListener() {
         swipeRefreshLayout.setOnRefreshListener {
-            viewModel.refreshWeatherList().observe(this, Observer {
-                when (it) {
-                    Resource.Status.SUCCESS -> {
-                        swipeRefreshLayout.isRefreshing = false
-                        showToast(R.string.weather_success_refresh)
-                    }
-                    Resource.Status.ERROR, Resource.Status.NETWORKERROR -> {
-                        swipeRefreshLayout.isRefreshing = false
-                        showToast(R.string.weather_failed_refresh)
-                    }
-                }
-            })
+            viewModel.refreshWeatherList()
         }
+    }
+
+    private fun showFailMessageIfNeeded() {
+        viewModel.status.observe(this, Observer {
+            when (it.data) {
+                Actions.Refresh -> showRefreshStatus(it.status)
+                Actions.InitDefaultWeather -> showInitWeatherStatus(it.status)
+                Actions.AddNewWeather -> showAddNewWeatherStatus(it.status)
+            }
+        })
+    }
+
+    private fun showRefreshStatus(status: Resource.Status?) {
+        when (status) {
+            Resource.Status.SUCCESS -> {
+                swipeRefreshLayout.isRefreshing = false
+                showToast(R.string.weather_success_refresh)
+            }
+            Resource.Status.ERROR, Resource.Status.NETWORKERROR -> {
+                swipeRefreshLayout.isRefreshing = false
+                showToast(R.string.weather_failed_refresh)
+            }
+        }
+    }
+
+    private fun showInitWeatherStatus(status: Resource.Status?) {
+        when (status){
+            Resource.Status.LOADING -> showProgressBar()
+            Resource.Status.ERROR, Resource.Status.NETWORKERROR -> showInitError()
+        }
+    }
+
+    private fun showAddNewWeatherStatus(status: Resource.Status?) {
+
+    }
+
+    private fun showProgressBar() {
+        currentWeatherBinding.info.visibility = View.VISIBLE
+    }
+
+    private fun hideProgressBar() {
+        currentWeatherBinding.info.visibility = View.GONE
+    }
+
+    private fun showErrorMessage() {
+        Snackbar.make(this.requireView(), getString(R.string.read_weather_fail), Snackbar.LENGTH_LONG).show()
+    }
+
+    private fun showInitError(){
+
     }
 
     private fun showToast(message: Int) {

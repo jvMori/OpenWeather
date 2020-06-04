@@ -1,5 +1,6 @@
 package com.jvmori.openweather.currentWeather.data.usecases
 
+import com.jvmori.openweather.common.data.Actions
 import com.jvmori.openweather.common.data.Resource
 import com.jvmori.openweather.currentWeather.domain.repositories.CurrentWeatherRepository
 import com.jvmori.openweather.currentWeather.domain.usecases.FetchNewWeatherUseCase
@@ -7,7 +8,7 @@ import com.jvmori.openweather.currentWeather.domain.usecases.FetchNewWeatherUseC
 class FetchNewWeatherUseCaseImpl(
     private val repository: CurrentWeatherRepository
 ) : FetchNewWeatherUseCase {
-    override suspend fun fetchCurrentWeather(city: String): Resource<String> {
+    override suspend fun fetchCurrentWeather(city: String): Resource<Actions> {
         return repository.fetchNewWeather(city)
     }
 }

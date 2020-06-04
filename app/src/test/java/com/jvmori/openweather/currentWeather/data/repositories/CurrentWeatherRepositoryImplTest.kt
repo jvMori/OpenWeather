@@ -45,7 +45,7 @@ class CurrentWeatherRepositoryImplTest {
             flowOf(listOf())
         )
 
-        repository.fetchAllWeather().map {
+        repository.observeAllWeather().map {
             val city: List<CurrentWeatherEntity> = it.data ?: listOf(CurrentWeatherEntity("", "", "",0))
             assert(it.status == Resource.success(localData))
             assert(city[0].city == cities[0])
@@ -62,7 +62,7 @@ class CurrentWeatherRepositoryImplTest {
             flowOf(localData)
         )
 
-        repository.fetchAllWeather().map {
+        repository.observeAllWeather().map {
             //Arrange
             assert(it.status == Resource.success(localData))
         }
@@ -75,7 +75,7 @@ class CurrentWeatherRepositoryImplTest {
             throw Exception()
         }
 
-        repository.fetchAllWeather().map {
+        repository.observeAllWeather().map {
             //Arrange
             assert(it.status == Resource.Status.ERROR)
         }

@@ -6,4 +6,5 @@
     <string name="add_city">Dodaj swoje miasto</string>
     <string name="weather_success_refresh">Zaktualizowano pogodę!</string>
     <string name="weather_failed_refresh">Nie udało się zaktualizować pogody!</string>
+    <string name="read_weather_fail">Nie udało się wczytać pogody!</string>
 </resources>

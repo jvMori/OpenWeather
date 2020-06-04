@@ -11,6 +11,6 @@ class FetchWeatherListUseCaseImpl(
 ) : FetchWeatherListUseCase {
 
     override fun fetchAllWeather(): Flow<Resource<List<CurrentWeatherEntity>>> {
-        return repository.fetchAllWeather()
+        return repository.observeAllWeather()
     }
 }

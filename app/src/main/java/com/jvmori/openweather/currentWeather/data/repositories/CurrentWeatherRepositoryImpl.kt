@@ -1,5 +1,6 @@
 package com.jvmori.openweather.currentWeather.data.repositories
 
+import com.jvmori.openweather.common.data.Actions
 import com.jvmori.openweather.common.data.Resource
 import com.jvmori.openweather.common.data.handleError
 import com.jvmori.openweather.currentWeather.data.local.CurrentWeatherData
@@ -19,24 +20,19 @@ class CurrentWeatherRepositoryImpl(
 
     private val defaultCities = listOf("Gdańsk", "Warszawa", "Kraków", "Wrocław", "Łódź")
 
-    override suspend fun fetchNewWeather(city: String): Resource<String> {
+    override suspend fun fetchNewWeather(city: String): Resource<Actions> {
         return try {
             fetchFromNetworkAndSave(city)
-            Resource.success("")
+            Resource.success(Actions.AddNewWeather)
         } catch (e: Exception) {
             handleError(e)
         }
     }
 
-    override fun fetchAllWeather(): Flow<Resource<List<CurrentWeatherEntity>>> {
+    override fun observeAllWeather(): Flow<Resource<List<CurrentWeatherEntity>>> {
         return try {
             Resource.loading(null)
             localDataSource.observeAllWeather().map { weatherList ->
-                if (weatherList.isEmpty()) {
-                    defaultCities.forEach { city ->
-                        fetchFromNetworkAndSave(city)
-                    }
-                }
                 Resource.success(mapLocalListToEntity(weatherList))
             }
         } catch (e: Exception) {
@@ -44,15 +40,40 @@ class CurrentWeatherRepositoryImpl(
         }
     }
 
-    override suspend fun refreshCurrentWeatherList(): Resource<String> {
+    override suspend fun refreshCurrentWeatherList(): Resource<Actions> {
         return try {
             Resource.loading("")
-            localDataSource.getAllWeather().map {
-                fetchFromNetworkAndSave(it.city)
+            val cities: List<CurrentWeatherData> = localDataSource.getAllWeather()
+            if (cities.isNotEmpty()) {
+                cities.map {
+                    fetchFromNetworkAndSave(it.city)
+                }
+            } else {
+                defaultCities.map {
+                    fetchFromNetworkAndSave(it)
+                }
             }
-            Resource.success("")
+            Resource.success(Actions.Refresh)
         } catch (e: Exception) {
             handleError(e)
+        }
+    }
+
+    override suspend fun initDefaultWeather(): Resource<Actions> {
+        return try {
+            fetchDefaultIfNeeded()
+            Resource.success(Actions.InitDefaultWeather)
+        } catch (e: Exception) {
+            handleError(e)
+        }
+    }
+
+    private suspend fun fetchDefaultIfNeeded() {
+        val weatherList = localDataSource.getAllWeather()
+        if (weatherList.isEmpty()) {
+            defaultCities.forEach { city ->
+                fetchFromNetworkAndSave(city)
+            }
         }
     }
 

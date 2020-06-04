@@ -10,7 +10,7 @@
 
     <style name="cardViewStyle" parent="Widget.MaterialComponents.CardView">
         <item name="cardCornerRadius">@dimen/corner_radius_s</item>
-        <item name="cardElevation">@dimen/elevation_medium</item>
+        <item name="cardElevation">@dimen/elevation_m</item>
         <item name="android:padding">@dimen/padding_small</item>
         <item name="android:layout_height">@dimen/custom_card_view_height</item>
         <item name="android:layout_margin">@dimen/margin_medium</item>
