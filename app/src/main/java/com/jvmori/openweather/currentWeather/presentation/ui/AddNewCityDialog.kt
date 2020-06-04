@@ -13,7 +13,6 @@ class AddNewCityDialog : DialogFragment() {
 
     private val viewModel: CurrentWeatherViewModel by sharedViewModel<CurrentWeatherViewModel>()
 
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         activity?.let {
             val builder = AlertDialog.Builder(it)
@@ -28,7 +27,8 @@ class AddNewCityDialog : DialogFragment() {
                     getString(R.string.add)
                 ) { dialog, which ->
                     val city = view.city.text.toString().trim().toLowerCase()
-                    viewModel.addNewWeather(city)
+                    if (city.isNotEmpty())
+                        viewModel.addNewWeather(city)
                 }
             return builder.create()
         }

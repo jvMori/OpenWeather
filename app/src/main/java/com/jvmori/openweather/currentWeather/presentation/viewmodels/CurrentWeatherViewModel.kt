@@ -26,12 +26,15 @@ class CurrentWeatherViewModel(
 
     fun addNewWeather(city: String) {
         viewModelScope.launch {
-            _status.value = addNewWeatherUseCase.fetchCurrentWeather(city)
+            _status.value = Resource.loading(Actions.AddNewWeather)
+            val data  = addNewWeatherUseCase.fetchCurrentWeather(city)
+            _status.value = data
         }
     }
 
     fun refreshWeatherList() {
         viewModelScope.launch {
+            _status.value = Resource.loading(Actions.Refresh)
             _status.value = refreshWeatherListUseCase.refreshCurrentWeatherList()
         }
     }

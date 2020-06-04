@@ -13,8 +13,8 @@ import com.jvmori.openweather.common.presentation.ui.BindingFragment
 import com.jvmori.openweather.currentWeather.presentation.viewmodels.CurrentWeatherViewModel
 import com.jvmori.openweather.databinding.FragmentCurrentWeatherBinding
 import kotlinx.android.synthetic.main.fragment_current_weather.*
+import kotlinx.android.synthetic.main.fragment_current_weather.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class CurrentWeatherFragment : BindingFragment(R.layout.fragment_current_weather) {
@@ -43,8 +43,9 @@ class CurrentWeatherFragment : BindingFragment(R.layout.fragment_current_weather
         observeWeatherList()
         setupOnWeatherClickListeners()
         swipeToRefreshListener()
-        showFailMessageIfNeeded()
+        displayActionStatus()
     }
+
     private fun observeWeatherList() {
         viewModel.fetchWeather().observe(this, Observer {
             when (it.status) {
@@ -72,7 +73,7 @@ class CurrentWeatherFragment : BindingFragment(R.layout.fragment_current_weather
         }
     }
 
-    private fun openDialog(){
+    private fun openDialog() {
         findNavController().navigate(R.id.action_currentWeatherFragment_to_addNewCityDialog)
     }
 
@@ -82,7 +83,7 @@ class CurrentWeatherFragment : BindingFragment(R.layout.fragment_current_weather
         }
     }
 
-    private fun showFailMessageIfNeeded() {
+    private fun displayActionStatus() {
         viewModel.status.observe(this, Observer {
             when (it.data) {
                 Actions.Refresh -> showRefreshStatus(it.status)
@@ -94,7 +95,13 @@ class CurrentWeatherFragment : BindingFragment(R.layout.fragment_current_weather
 
     private fun showRefreshStatus(status: Resource.Status?) {
         when (status) {
+            Resource.Status.LOADING -> {
+                hideInitError()
+                hideRecyclerView(true)
+            }
             Resource.Status.SUCCESS -> {
+                hideInitError()
+                hideRecyclerView(false)
                 swipeRefreshLayout.isRefreshing = false
                 showToast(R.string.weather_success_refresh)
             }
@@ -106,14 +113,25 @@ class CurrentWeatherFragment : BindingFragment(R.layout.fragment_current_weather
     }
 
     private fun showInitWeatherStatus(status: Resource.Status?) {
-        when (status){
+        when (status) {
             Resource.Status.LOADING -> showProgressBar()
-            Resource.Status.ERROR, Resource.Status.NETWORKERROR -> showInitError()
+            Resource.Status.SUCCESS -> hideProgressBar()
+            Resource.Status.ERROR, Resource.Status.NETWORKERROR -> {
+                hideProgressBar()
+                showInitError()
+            }
         }
     }
 
     private fun showAddNewWeatherStatus(status: Resource.Status?) {
-
+        when (status) {
+            Resource.Status.LOADING -> showProgressBar()
+            Resource.Status.SUCCESS -> hideProgressBar()
+            Resource.Status.ERROR, Resource.Status.NETWORKERROR -> {
+                hideProgressBar()
+                showErrorMessage()
+            }
+        }
     }
 
     private fun showProgressBar() {
@@ -128,8 +146,16 @@ class CurrentWeatherFragment : BindingFragment(R.layout.fragment_current_weather
         Snackbar.make(this.requireView(), getString(R.string.read_weather_fail), Snackbar.LENGTH_LONG).show()
     }
 
-    private fun showInitError(){
+    private fun showInitError() {
+        currentWeatherBinding.errorLayout.visibility = View.VISIBLE
+    }
 
+    private fun hideInitError() {
+        currentWeatherBinding.errorLayout.visibility = View.GONE
+    }
+
+    private fun hideRecyclerView(hide : Boolean){
+        currentWeatherBinding.swipeRefreshLayout.weatherList.visibility = if (hide) View.GONE else View.VISIBLE
     }
 
     private fun showToast(message: Int) {

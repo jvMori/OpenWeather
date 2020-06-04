@@ -25,7 +25,7 @@ class CurrentWeatherRepositoryImpl(
             fetchFromNetworkAndSave(city)
             Resource.success(Actions.AddNewWeather)
         } catch (e: Exception) {
-            handleError(e)
+            handleError(e, Actions.AddNewWeather)
         }
     }
 
@@ -55,7 +55,7 @@ class CurrentWeatherRepositoryImpl(
             }
             Resource.success(Actions.Refresh)
         } catch (e: Exception) {
-            handleError(e)
+            handleError(e, Actions.Refresh)
         }
     }
 
@@ -64,7 +64,7 @@ class CurrentWeatherRepositoryImpl(
             fetchDefaultIfNeeded()
             Resource.success(Actions.InitDefaultWeather)
         } catch (e: Exception) {
-            handleError(e)
+            handleError(e, Actions.InitDefaultWeather)
         }
     }
 

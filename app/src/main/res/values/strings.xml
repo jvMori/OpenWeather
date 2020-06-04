@@ -12,4 +12,6 @@
     <string name="search_city">Prognoza pogody</string>
     <string name="cancel">ZAMKNIJ</string>
     <string name="add">DODAJ</string>
+    <string name="init_error_message">Nie udało się wczytać pogody! Sprawdź połączenie internetowe i spróbuj ponownie
+    </string>
 </resources>
