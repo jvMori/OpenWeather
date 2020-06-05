@@ -19,7 +19,7 @@ class AddNewCityDialog : DialogFragment() {
             val inflater = requireActivity().layoutInflater
             val view = inflater.inflate(R.layout.add_new_city_dialog, null)
             builder.setView(view)
-                .setTitle(getString(R.string.search_city))
+                .setTitle("")
                 .setNegativeButton(
                     getString(R.string.cancel)
                 ) { dialog, which -> }
