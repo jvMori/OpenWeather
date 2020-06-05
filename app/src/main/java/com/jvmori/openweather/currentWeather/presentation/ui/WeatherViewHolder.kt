@@ -12,11 +12,14 @@ class WeatherViewHolder(
     private val binding: WeatherItemBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    var onClickListener: ((position: Int) -> Unit)? = null
+    var onClickListener: ((data: CurrentWeatherEntity) -> Unit)? = null
 
     fun bind(item: CurrentWeatherEntity) {
         binding.weather = item
         binding.executePendingBindings()
+        binding.root.setOnClickListener {
+            onClickListener?.invoke(item)
+        }
     }
 
     companion object {

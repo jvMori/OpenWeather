@@ -12,7 +12,7 @@ class WeatherAdapter(
     private var items: List<CurrentWeatherEntity>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var onWeatherClickListener : ((position: Int) -> Unit)? = null
+    var onWeatherClickListener : ((data: CurrentWeatherEntity) -> Unit)? = null
     var onAddButtonClickListener : (() -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

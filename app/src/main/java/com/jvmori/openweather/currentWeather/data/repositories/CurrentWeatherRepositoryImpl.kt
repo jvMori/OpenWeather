@@ -1,11 +1,7 @@
 package com.jvmori.openweather.currentWeather.data.repositories
 
-import com.jvmori.openweather.common.data.Actions
-import com.jvmori.openweather.common.data.Resource
-import com.jvmori.openweather.common.data.handleError
+import com.jvmori.openweather.common.data.*
 import com.jvmori.openweather.currentWeather.data.local.CurrentWeatherData
-import com.jvmori.openweather.currentWeather.data.network.response.CurrentWeatherResponse
-import com.jvmori.openweather.currentWeather.domain.entities.Coordinates
 import com.jvmori.openweather.currentWeather.domain.entities.CurrentWeatherEntity
 import com.jvmori.openweather.currentWeather.domain.repositories.CurrentWeatherLocalDataSource
 import com.jvmori.openweather.currentWeather.domain.repositories.CurrentWeatherRemoteDataSource
@@ -80,31 +76,14 @@ class CurrentWeatherRepositoryImpl(
 
     private suspend fun fetchFromNetworkAndSave(city: String) {
         val remote = remoteDataSource.fetchCurrentWeather(city)
-        val mapped = mapRemoteToLocal(remote)
+        val mapped = remote.mapToLocal()
         localDataSource.saveCurrentWeather(mapped)
     }
 
-    private fun mapRemoteToLocal(remote: CurrentWeatherResponse): CurrentWeatherData {
-        return CurrentWeatherData(
-            remote.weatherId,
-            remote.cityName,
-            remote.coordinates.lat,
-            remote.coordinates.lon,
-            remote.weather[0].description,
-            remote.weather[0].icon,
-            remote.main.temp
-        )
-    }
 
     private fun mapLocalListToEntity(local: List<CurrentWeatherData>): List<CurrentWeatherEntity> {
         return local.map {
-            CurrentWeatherEntity(
-                Coordinates(it.latitude, it.longitude),
-                it.city,
-                it.condition,
-                it.iconUrl,
-                it.temperature.toInt()
-            )
+            it.mapToEntity()
         }
     }
 }

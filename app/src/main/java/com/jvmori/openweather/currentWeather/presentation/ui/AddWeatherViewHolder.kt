@@ -12,7 +12,7 @@ class AddWeatherViewHolder(private val binding: AddWeatherItemBinding) : Recycle
     var onClickListener: (() -> Unit)? = null
 
     fun bind() {
-        binding.addBtn.setOnClickListener {
+        binding.root.setOnClickListener {
             onClickListener?.invoke()
         }
     }
