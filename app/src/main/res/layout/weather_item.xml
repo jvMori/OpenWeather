@@ -36,7 +36,7 @@
             <TextView
                     android:text='@{Weather.condition, default="Rainy"}'
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/condition"
+                    android:layout_height="wrap_content" android:id="@+id/day"
                     app:layout_constraintTop_toBottomOf="@+id/cityName"
                     app:layout_constraintStart_toStartOf="@+id/cityName" android:textStyle="italic"
                     android:layout_marginTop="4dp"/>

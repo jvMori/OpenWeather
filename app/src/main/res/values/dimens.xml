@@ -8,4 +8,7 @@
     <dimen name="margin_medium">8dp</dimen>
     <dimen name="corner_radius_s">10dp</dimen>
     <dimen name="stroke_width_s">1dp</dimen>
+    <dimen name="text_default">16sp</dimen>
+    <dimen name="text_large">20sp</dimen>
+    <dimen name="text_headline">24sp</dimen>
 </resources>

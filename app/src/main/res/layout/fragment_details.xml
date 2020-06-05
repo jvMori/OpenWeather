@@ -1,20 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
     <data>
         <import type="com.jvmori.openweather.currentWeather.data.ui.CurrentWeatherUI"/>
+        <import type="com.jvmori.openweather.forecast.domain.entities.WeatherDetailsEntity"/>
         <variable name="currentWeather" type="CurrentWeatherUI"/>
+        <variable name="details" type="WeatherDetailsEntity"/>
     </data>
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".forecast.presentation.ui.DetailsFragment">
 
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
-                android:id="@+id/hello"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/hello_blank_fragment"/>
+        <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                                                           android:layout_height="match_parent"
+                                                           app:layout_constraintTop_toTopOf="parent"
+                                                           app:layout_constraintStart_toStartOf="parent"
+                                                           app:layout_constraintEnd_toEndOf="parent"
+                                                           app:layout_constraintBottom_toBottomOf="parent">
+            <TextView
+                    android:text="Warszawa"
+                    android:textColor="@color/colorPrimary"
+                    style="@style/largeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/city"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+                    android:layout_marginTop="32dp" app:layout_constraintTop_toTopOf="parent"/>
+            <TextView
+                    android:text="pochmurno z przejaśnieniami"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/description"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="8dp" android:textStyle="italic" android:textSize="@dimen/text_default"/>
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" app:srcCompat="@drawable/icon" android:id="@+id/imageView"
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintTop_toBottomOf="@+id/city" app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/temp"
+                    app:layout_constraintHorizontal_chainStyle="packed"/>
+            <TextView
+                    android:text="32°C"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/temp"
+                    android:textSize="50sp"
+                    app:layout_constraintTop_toTopOf="@+id/imageView"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                    app:layout_constraintStart_toEndOf="@+id/imageView" app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
-    </FrameLayout>
+            <com.jvmori.openweather.forecast.presentation.ui.ConditionItemView
+                    app:valueTxt="6.5 m/s"
+                    app:descTxt="Wind speed"
+                    app:icon="@drawable/wind"
+                    android:layout_width="wrap_content"
+                    android:layout_height="144dp"
+                    style="@style/cardViewStyle"
+                    app:cardElevation="@dimen/elevation_small"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp"
+                    android:id="@+id/conditionItemView2"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintEnd_toStartOf="@+id/conditionItemView"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/condGuideLine"/>
+            <com.jvmori.openweather.forecast.presentation.ui.ConditionItemView
+                    app:valueTxt="997 hPa"
+                    app:descTxt="Pressure"
+                    app:icon="@drawable/pressure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/cardViewStyle"
+                    app:cardElevation="@dimen/elevation_small"
+                    android:id="@+id/conditionItemView" app:layout_constraintStart_toEndOf="@+id/conditionItemView2"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintEnd_toStartOf="@+id/conditionItemView3"
+                    app:layout_constraintTop_toTopOf="@+id/conditionItemView2"
+                    app:layout_constraintBottom_toBottomOf="@+id/conditionItemView2"/>
+            <com.jvmori.openweather.forecast.presentation.ui.ConditionItemView
+                    app:valueTxt="90%"
+                    app:descTxt="Humidity"
+                    app:icon="@drawable/humidity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/cardViewStyle"
+                    app:cardElevation="@dimen/elevation_small"
+                    android:id="@+id/conditionItemView3" app:layout_constraintStart_toEndOf="@+id/conditionItemView"
+                    app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/conditionItemView"
+                    app:layout_constraintBottom_toBottomOf="@+id/conditionItemView"/>
+            <com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+                                                               android:layout_height="130dp"
+                                                               android:layout_marginTop="8dp"
+                                                               app:layout_constraintTop_toTopOf="@+id/forecastGuideline"
+                                                               app:layout_constraintStart_toStartOf="parent"
+                                                               style="@style/cardViewStyle"
+                                                               app:cardElevation="@dimen/elevation_small"
+                                                               app:layout_constraintEnd_toEndOf="parent"
+                                                               android:orientation="horizontal">
+                <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
+                                                           android:layout_height="match_parent"
+                                                           tools:listitem="@layout/forecast_item"/>
+            </com.google.android.material.card.MaterialCardView>
+            <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:id="@+id/condGuideLine"
+                                                        app:layout_constraintGuide_begin="270dp"
+                                                        android:orientation="horizontal"/>
+            <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:id="@+id/forecastGuideline"
+                                                        app:layout_constraintGuide_begin="495dp"
+                                                        android:orientation="horizontal"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <include layout="@layout/loading_layout" android:id="@+id/loading" android:visibility="gone"/>
+        <include layout="@layout/error_layout" android:id="@+id/error" android:visibility="gone"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

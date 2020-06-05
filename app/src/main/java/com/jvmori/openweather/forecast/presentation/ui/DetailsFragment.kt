@@ -51,7 +51,8 @@ class DetailsFragment : BindingFragment(R.layout.fragment_details) {
 
     private fun showLoading() {}
     private fun showSuccess(data: WeatherDetailsEntity) {
-        Log.i("WEATHER", data.toString())
+        detailsBinding.details = data
+        detailsBinding.executePendingBindings()
     }
 
     private fun showError() {}

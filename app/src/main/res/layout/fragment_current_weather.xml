@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
 
     </data>
@@ -15,28 +15,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:visibility="visible"/>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-        <FrameLayout android:background="#fff"
-                     android:layout_width="match_parent"
-                     android:layout_height="match_parent" android:id="@+id/info"
-                     app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-                     app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-                     android:visibility="visible">
-            <ProgressBar android:layout_width="match_parent"
-                         android:layout_gravity="center"
-                         android:layout_height="wrap_content" android:visibility="visible"
-                         android:id="@+id/progressBar"/>
-        </FrameLayout>
-        <FrameLayout
-                android:background="#fff"
-                android:id="@+id/errorLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" android:visibility="gone">
-            <TextView
-                    android:text="@string/init_error_message"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/errorInit" android:textAlignment="center"
-                    android:layout_gravity="center" android:padding="8dp" android:textSize="16sp"/>
-        </FrameLayout>
+
+        <include layout="@layout/loading_layout" android:id="@+id/loadingLayout"/>
+
+        <include layout="@layout/error_layout" android:id="@+id/errorLayout"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

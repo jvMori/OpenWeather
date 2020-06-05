@@ -15,5 +15,9 @@
         <item name="android:layout_height">@dimen/custom_card_view_height</item>
         <item name="android:layout_margin">@dimen/margin_medium</item>
     </style>
+    <style name="largeText" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">@dimen/text_headline</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
 </resources>

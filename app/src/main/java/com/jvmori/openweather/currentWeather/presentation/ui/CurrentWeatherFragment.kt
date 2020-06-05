@@ -143,11 +143,11 @@ class CurrentWeatherFragment : BindingFragment(R.layout.fragment_current_weather
     }
 
     private fun showProgressBar() {
-        currentWeatherBinding.info.visibility = View.VISIBLE
+        currentWeatherBinding.loadingLayout.visibility = View.VISIBLE
     }
 
     private fun hideProgressBar() {
-        currentWeatherBinding.info.visibility = View.GONE
+        currentWeatherBinding.loadingLayout.visibility = View.GONE
     }
 
     private fun showErrorMessage() {
