@@ -44,7 +44,7 @@ class CurrentWeatherDaoTest : KoinTest {
     fun when_saving_data_successfully_then_get_data_returns_success() {
         runBlocking {
             //Arrange
-            val weather = CurrentWeatherData(1, "", "")
+            val weather = CurrentWeatherData(1, "", 0.00, 0.00,"")
 
             //Act
             dao.insert(weather)

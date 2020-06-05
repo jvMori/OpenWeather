@@ -4,6 +4,7 @@ import com.jvmori.openweather.common.data.Resource
 import com.jvmori.openweather.currentWeather.data.local.CurrentWeatherData
 import com.jvmori.openweather.currentWeather.data.network.response.CurrentWeatherResponse
 import com.jvmori.openweather.currentWeather.data.network.response.Weather
+import com.jvmori.openweather.currentWeather.domain.entities.Coordinates
 import com.jvmori.openweather.currentWeather.domain.entities.CurrentWeatherEntity
 import com.jvmori.openweather.currentWeather.domain.repositories.CurrentWeatherLocalDataSource
 import com.jvmori.openweather.currentWeather.domain.repositories.CurrentWeatherRemoteDataSource
@@ -36,8 +37,8 @@ class CurrentWeatherRepositoryImplTest {
         //Arrange
         val cities = listOf("Gdańsk", "Warszawa")
         val localData = listOf(
-            CurrentWeatherData(1, cities[0], ""),
-            CurrentWeatherData(2, cities[1], "")
+            CurrentWeatherData(1, cities[0], 0.00, 0.00, ""),
+            CurrentWeatherData(2, cities[1], 0.00, 0.00, "")
         )
 
         //Act
@@ -46,7 +47,7 @@ class CurrentWeatherRepositoryImplTest {
         )
 
         repository.observeAllWeather().map {
-            val city: List<CurrentWeatherEntity> = it.data ?: listOf(CurrentWeatherEntity("", "", "",0))
+            val city: List<CurrentWeatherEntity> = it.data ?: listOf(CurrentWeatherEntity(Coordinates(), "", "", "", 0))
             assert(it.status == Resource.success(localData))
             assert(city[0].city == cities[0])
         }
@@ -55,7 +56,7 @@ class CurrentWeatherRepositoryImplTest {
     @Test
     fun `when fetching all saved weather successfully then return success`() {
         //Arrange
-        val localData = listOf(CurrentWeatherData(1, "", ""))
+        val localData = listOf(CurrentWeatherData(1, "", 0.00, 0.00, ""))
 
         //Act
         Mockito.`when`(localDataSource.observeAllWeather()).thenReturn(

@@ -15,6 +15,12 @@ data class CurrentWeatherData(
     @ColumnInfo(name = "city_name")
     var city: String,
 
+    @ColumnInfo(name = "latitude")
+    var latitude: Double,
+
+    @ColumnInfo(name = "longitude")
+    var longitude: Double,
+
     @ColumnInfo(name = "condition")
     var condition: String,
 

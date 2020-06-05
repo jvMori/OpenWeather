@@ -5,6 +5,7 @@ import com.jvmori.openweather.common.data.Resource
 import com.jvmori.openweather.common.data.handleError
 import com.jvmori.openweather.currentWeather.data.local.CurrentWeatherData
 import com.jvmori.openweather.currentWeather.data.network.response.CurrentWeatherResponse
+import com.jvmori.openweather.currentWeather.domain.entities.Coordinates
 import com.jvmori.openweather.currentWeather.domain.entities.CurrentWeatherEntity
 import com.jvmori.openweather.currentWeather.domain.repositories.CurrentWeatherLocalDataSource
 import com.jvmori.openweather.currentWeather.domain.repositories.CurrentWeatherRemoteDataSource
@@ -87,6 +88,8 @@ class CurrentWeatherRepositoryImpl(
         return CurrentWeatherData(
             remote.weatherId,
             remote.cityName,
+            remote.coordinates.lat,
+            remote.coordinates.lon,
             remote.weather[0].description,
             remote.weather[0].icon,
             remote.main.temp
@@ -95,7 +98,13 @@ class CurrentWeatherRepositoryImpl(
 
     private fun mapLocalListToEntity(local: List<CurrentWeatherData>): List<CurrentWeatherEntity> {
         return local.map {
-            CurrentWeatherEntity(it.city, it.condition, it.iconUrl, it.temperature.toInt())
+            CurrentWeatherEntity(
+                Coordinates(it.latitude, it.longitude),
+                it.city,
+                it.condition,
+                it.iconUrl,
+                it.temperature.toInt()
+            )
         }
     }
 }
