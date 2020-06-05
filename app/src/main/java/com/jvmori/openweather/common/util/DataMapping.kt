@@ -65,12 +65,10 @@ fun ForecastResponse.mapToEntity(): WeatherDetailsEntity {
 fun List<Forecast>.mapToUI(): List<ForecastUI> {
     return this.map {
         ForecastUI(
-            "Monday",
             it.condition,
             it.iconUrl,
             it.temperature
         )
     }
 }
-
 
