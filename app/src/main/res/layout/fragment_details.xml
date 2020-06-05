@@ -58,7 +58,7 @@
                     app:layout_constraintStart_toEndOf="@+id/imageView" app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintEnd_toEndOf="parent"/>
             <include android:layout_height="wrap_content"
-                     android:layout_width="120dp"
+                     android:layout_width="110dp"
                      layout="@layout/condition_item"
                      bind:conditionValue='@{Double.toString(details.windSpeed) + "m/s"}'
                      bind:conditionDesc="@{condition.conditionDescription}"
@@ -69,7 +69,7 @@
                      bind:layout_constraintStart_toEndOf="@+id/include3" bind:layout_constraintHorizontal_bias="0.5"
                      bind:layout_constraintEnd_toEndOf="parent"/>
             <include android:layout_height="wrap_content"
-                     android:layout_width="120dp"
+                     android:layout_width="110dp"
                      layout="@layout/condition_item"
                      bind:conditionValue='@{Integer.toString(details.pressure) + " hPa"}'
                      bind:conditionDesc="@{pressure.conditionDescription}"
@@ -79,7 +79,7 @@
                      android:id="@+id/include3" bind:layout_constraintStart_toEndOf="@+id/include2"
                      bind:layout_constraintHorizontal_bias="0.5" bind:layout_constraintEnd_toStartOf="@+id/include"/>
             <include android:layout_height="wrap_content"
-                     android:layout_width="120dp"
+                     android:layout_width="110dp"
                      layout="@layout/condition_item"
                      bind:conditionValue='@{Integer.toString(details.humidity) + "%"}'
                      bind:conditionDesc="@{humidity.conditionDescription}"
