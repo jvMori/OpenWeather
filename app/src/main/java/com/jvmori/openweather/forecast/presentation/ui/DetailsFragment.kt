@@ -12,6 +12,7 @@ import com.jvmori.openweather.common.presentation.ui.BindingFragment
 import com.jvmori.openweather.currentWeather.data.ui.CurrentWeatherUI
 import com.jvmori.openweather.currentWeather.domain.entities.Coordinates
 import com.jvmori.openweather.databinding.FragmentDetailsBinding
+import com.jvmori.openweather.forecast.data.ConditionData
 import com.jvmori.openweather.forecast.domain.entities.WeatherDetailsEntity
 import com.jvmori.openweather.forecast.presentation.viewmodels.DetailsViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -52,6 +53,9 @@ class DetailsFragment : BindingFragment(R.layout.fragment_details) {
     private fun showLoading() {}
     private fun showSuccess(data: WeatherDetailsEntity) {
         detailsBinding.details = data
+        detailsBinding.condition = ConditionData(getString(R.string.wind), resources.getDrawable(R.drawable.wind))
+        detailsBinding.pressure = ConditionData(getString(R.string.pressure), resources.getDrawable(R.drawable.pressure))
+        detailsBinding.humidity = ConditionData(getString(R.string.humidity), resources.getDrawable(R.drawable.humidity))
         detailsBinding.executePendingBindings()
     }
 

@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
         xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
     <data>
         <import type="com.jvmori.openweather.currentWeather.data.ui.CurrentWeatherUI"/>
         <import type="com.jvmori.openweather.forecast.domain.entities.WeatherDetailsEntity"/>
+        <import type="com.jvmori.openweather.forecast.data.ConditionData"/>
         <variable name="currentWeather" type="CurrentWeatherUI"/>
         <variable name="details" type="WeatherDetailsEntity"/>
+        <variable name="condition" type="ConditionData"/>
+        <variable name="pressure" type="ConditionData"/>
+        <variable name="humidity" type="ConditionData"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -19,16 +24,16 @@
                                                            app:layout_constraintEnd_toEndOf="parent"
                                                            app:layout_constraintBottom_toBottomOf="parent">
             <TextView
-                    android:text="Warszawa"
+                    android:text='@{currentWeather.city, default="Warszawa"}'
                     android:textColor="@color/colorPrimary"
                     style="@style/largeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/city"
                     app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
                     app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-                    android:layout_marginTop="32dp" app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="40dp"/>
             <TextView
-                    android:text="pochmurno z przejaśnieniami"
+                    android:text='@{currentWeather.condition, default="pochmurno z przejaśnieniami"}'
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/description"
                     android:layout_marginTop="16dp"
@@ -36,14 +41,16 @@
                     android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="8dp" android:textStyle="italic" android:textSize="@dimen/text_default"/>
             <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" app:srcCompat="@drawable/icon" android:id="@+id/imageView"
-                    android:layout_marginTop="24dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    loadImage="@{currentWeather.iconUrl}"
+                    android:id="@+id/imageView"
+                    android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/city" app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/temp"
                     app:layout_constraintHorizontal_chainStyle="packed"/>
             <TextView
-                    android:text="32°C"
+                    android:text='@{Integer.toString(currentWeather.temperature) + "°C", default="12°C" }'
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/temp"
                     android:textSize="50sp"
@@ -51,59 +58,53 @@
                     app:layout_constraintBottom_toBottomOf="@+id/imageView"
                     app:layout_constraintStart_toEndOf="@+id/imageView" app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintEnd_toEndOf="parent"/>
+            <include android:layout_height="wrap_content"
+                     android:layout_width="120dp"
+                     layout="@layout/condition_item"
+                     bind:conditionValue='@{Double.toString(details.windSpeed) + "m/s"}'
+                     bind:conditionDesc="@{condition.conditionDescription}"
+                     bind:conditionImg="@{condition.drawable}"
+                     android:id="@+id/include"
+                     bind:layout_constraintBottom_toBottomOf="@+id/include3"
+                     bind:layout_constraintTop_toTopOf="@+id/include3"
+                     bind:layout_constraintStart_toEndOf="@+id/include3" bind:layout_constraintHorizontal_bias="0.5"
+                     bind:layout_constraintEnd_toEndOf="parent"/>
+            <include android:layout_height="wrap_content"
+                     android:layout_width="120dp"
+                     layout="@layout/condition_item"
+                     bind:conditionValue='@{Integer.toString(details.pressure) + " hPa"}'
+                     bind:conditionDesc="@{pressure.conditionDescription}"
+                     bind:conditionImg="@{pressure.drawable}"
+                     bind:layout_constraintTop_toTopOf="@+id/include2"
+                     bind:layout_constraintBottom_toBottomOf="@+id/include2" bind:layout_constraintVertical_bias="0.0"
+                     android:id="@+id/include3" bind:layout_constraintStart_toEndOf="@+id/include2"
+                     bind:layout_constraintHorizontal_bias="0.5" bind:layout_constraintEnd_toStartOf="@+id/include"/>
+            <include android:layout_height="wrap_content"
+                     android:layout_width="120dp"
+                     layout="@layout/condition_item"
+                     bind:conditionValue='@{Integer.toString(details.humidity) + "%"}'
+                     bind:conditionDesc="@{humidity.conditionDescription}"
+                     bind:conditionImg="@{humidity.drawable}"
+                     android:id="@+id/include2"
+                     android:layout_marginTop="8dp" bind:layout_constraintTop_toTopOf="@+id/condGuideLine"
+                     bind:layout_constraintStart_toStartOf="parent" bind:layout_constraintHorizontal_bias="0.5"
+                     bind:layout_constraintEnd_toStartOf="@+id/include3"
+                     bind:layout_constraintHorizontal_chainStyle="spread"/>
 
-            <com.jvmori.openweather.forecast.presentation.ui.ConditionItemView
-                    app:valueTxt="6.5 m/s"
-                    app:descTxt="Wind speed"
-                    app:icon="@drawable/wind"
-                    android:layout_width="wrap_content"
-                    android:layout_height="144dp"
-                    style="@style/cardViewStyle"
-                    app:cardElevation="@dimen/elevation_small"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp"
-                    android:id="@+id/conditionItemView2"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintEnd_toStartOf="@+id/conditionItemView"
-                    app:layout_constraintHorizontal_chainStyle="spread_inside"
-                    android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/condGuideLine"/>
-            <com.jvmori.openweather.forecast.presentation.ui.ConditionItemView
-                    app:valueTxt="997 hPa"
-                    app:descTxt="Pressure"
-                    app:icon="@drawable/pressure"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/cardViewStyle"
-                    app:cardElevation="@dimen/elevation_small"
-                    android:id="@+id/conditionItemView" app:layout_constraintStart_toEndOf="@+id/conditionItemView2"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintEnd_toStartOf="@+id/conditionItemView3"
-                    app:layout_constraintTop_toTopOf="@+id/conditionItemView2"
-                    app:layout_constraintBottom_toBottomOf="@+id/conditionItemView2"/>
-            <com.jvmori.openweather.forecast.presentation.ui.ConditionItemView
-                    app:valueTxt="90%"
-                    app:descTxt="Humidity"
-                    app:icon="@drawable/humidity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/cardViewStyle"
-                    app:cardElevation="@dimen/elevation_small"
-                    android:id="@+id/conditionItemView3" app:layout_constraintStart_toEndOf="@+id/conditionItemView"
-                    app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/conditionItemView"
-                    app:layout_constraintBottom_toBottomOf="@+id/conditionItemView"/>
             <com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
                                                                android:layout_height="130dp"
                                                                android:layout_marginTop="8dp"
                                                                app:layout_constraintTop_toTopOf="@+id/forecastGuideline"
                                                                app:layout_constraintStart_toStartOf="parent"
                                                                style="@style/cardViewStyle"
-                                                               app:cardElevation="@dimen/elevation_small"
+                                                               app:cardElevation="2dp"
                                                                app:layout_constraintEnd_toEndOf="parent"
                                                                android:orientation="horizontal">
-                <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
-                                                           android:layout_height="match_parent"
-                                                           tools:listitem="@layout/forecast_item"/>
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/forecastRv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:listitem="@layout/forecast_item"/>
             </com.google.android.material.card.MaterialCardView>
             <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content"
                                                         android:layout_height="wrap_content"
@@ -113,8 +114,9 @@
             <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content"
                                                         android:layout_height="wrap_content"
                                                         android:id="@+id/forecastGuideline"
-                                                        app:layout_constraintGuide_begin="495dp"
-                                                        android:orientation="horizontal"/>
+                                                        app:layout_constraintGuide_begin="465dp"
+                                                        android:orientation="horizontal"
+                                                       />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <include layout="@layout/loading_layout" android:id="@+id/loading" android:visibility="gone"/>
         <include layout="@layout/error_layout" android:id="@+id/error" android:visibility="gone"/>

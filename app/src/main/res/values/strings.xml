@@ -14,4 +14,7 @@
     <string name="add">DODAJ</string>
     <string name="init_error_message">Nie udało się wczytać pogody! Sprawdź połączenie internetowe i spróbuj ponownie
     </string>
+    <string name="pressure">Ciśnienie</string>
+    <string name="humidity">Wilgotność</string>
+    <string name="wind">Wiatr</string>
 </resources>

@@ -1,39 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   android:orientation="vertical"
-                                                   android:layout_width="120dp"
-                                                   android:layout_height="wrap_content" android:padding="16dp"
-                                                   app:cardCornerRadius="@dimen/corner_radius_s">
-    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
-                                                       android:layout_height="match_parent" android:padding="16dp"
-                                                       android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="conditionValue" type="String"/>
+        <variable name="conditionDesc" type="String"/>
+        <variable name="conditionImg" type="android.graphics.drawable.Drawable"/>
+    </data>
+    <com.google.android.material.card.MaterialCardView
+            android:orientation="vertical"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content" android:padding="16dp"
+            app:cardCornerRadius="@dimen/corner_radius_s">
+        <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                                                           android:layout_height="match_parent" android:padding="16dp"
+                                                           android:orientation="vertical">
 
-        <TextView
-                android:text="3.5 m/s"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/txtValue" android:layout_weight="1"
-                android:textStyle="bold" android:textSize="@dimen/text_large" android:layout_gravity="center"
-                android:layout_marginTop="4dp" app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"/>
-        <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp" app:srcCompat="@drawable/wind" android:id="@+id/icon"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/txtValue"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
-        <TextView
-                android:text="Wind speed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/desc" android:layout_weight="1"
-                android:layout_gravity="center" android:textStyle="italic"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.478" android:layout_marginTop="4dp"
-                app:layout_constraintTop_toBottomOf="@+id/icon"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                    android:text="@{conditionValue}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/txtValue" android:layout_weight="1"
+                    android:textStyle="bold" android:textSize="@dimen/text_large" android:layout_gravity="center"
+                    android:layout_marginTop="4dp" app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"/>
+            <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@{conditionImg}"
+                    android:id="@+id/icon"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/txtValue"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+            <TextView
+                    android:text="@{conditionDesc}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/desc" android:layout_weight="1"
+                    android:layout_gravity="center" android:textStyle="italic"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.478" android:layout_marginTop="4dp"
+                    app:layout_constraintTop_toBottomOf="@+id/icon"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-</com.google.android.material.card.MaterialCardView>
+    </com.google.android.material.card.MaterialCardView>
+</layout>
