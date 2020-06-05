@@ -54,7 +54,6 @@ class CurrentWeatherFragment : BindingFragment(R.layout.fragment_current_weather
                 Resource.Status.LOADING -> showProgressBar()
                 Resource.Status.SUCCESS -> {
                     adapter.submitList(it.data ?: listOf())
-                    hideProgressBar()
                 }
                 Resource.Status.ERROR, Resource.Status.NETWORKERROR -> {
                     hideProgressBar()
@@ -122,8 +121,14 @@ class CurrentWeatherFragment : BindingFragment(R.layout.fragment_current_weather
 
     private fun showInitWeatherStatus(status: Resource.Status?) {
         when (status) {
-            Resource.Status.LOADING -> showProgressBar()
-            Resource.Status.SUCCESS -> hideProgressBar()
+            Resource.Status.LOADING -> {
+                showProgressBar()
+                hideRecyclerView(true)
+            }
+            Resource.Status.SUCCESS -> {
+                hideProgressBar()
+                hideRecyclerView(false)
+            }
             Resource.Status.ERROR, Resource.Status.NETWORKERROR -> {
                 hideProgressBar()
                 showInitError()
@@ -134,7 +139,9 @@ class CurrentWeatherFragment : BindingFragment(R.layout.fragment_current_weather
     private fun showAddNewWeatherStatus(status: Resource.Status?) {
         when (status) {
             Resource.Status.LOADING -> showProgressBar()
-            Resource.Status.SUCCESS -> hideProgressBar()
+            Resource.Status.SUCCESS -> {
+                hideProgressBar()
+            }
             Resource.Status.ERROR, Resource.Status.NETWORKERROR -> {
                 hideProgressBar()
                 showErrorMessage()

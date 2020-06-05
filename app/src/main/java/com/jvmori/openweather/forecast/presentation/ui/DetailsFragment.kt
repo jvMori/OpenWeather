@@ -47,14 +47,21 @@ class DetailsFragment : BindingFragment(R.layout.fragment_details) {
         })
     }
 
-    private fun showLoading() {}
-    
+    private fun showLoading() {
+        showProgressBar(true)
+    }
+
     private fun showSuccess(data: WeatherDetailsEntity) {
         bindView(data)
         adapter.submitItems(data.dailyForecast.mapToUI())
+        showErrorLayout(false)
+        showProgressBar(false)
     }
 
-    private fun showError() {}
+    private fun showError() {
+        showProgressBar(false)
+        showErrorLayout(true)
+    }
 
     private fun getCurrentWeatherData(): CurrentWeatherUI? {
         return try {
@@ -63,6 +70,14 @@ class DetailsFragment : BindingFragment(R.layout.fragment_details) {
             //show error page
             null
         }
+    }
+
+    private fun showProgressBar(show: Boolean) {
+        detailsBinding.loading.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    private fun showErrorLayout(show: Boolean) {
+        detailsBinding.error.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     private fun bindView(data: WeatherDetailsEntity) {
