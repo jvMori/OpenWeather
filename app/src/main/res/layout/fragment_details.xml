@@ -25,8 +25,7 @@
                                                            app:layout_constraintBottom_toBottomOf="parent">
             <TextView
                     android:text='@{currentWeather.city, default="Warszawa"}'
-                    android:textColor="@color/colorPrimary"
-                    style="@style/largeText"
+                    android:textSize="@dimen/text_headline"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/city"
                     app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
