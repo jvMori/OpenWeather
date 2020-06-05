@@ -45,4 +45,5 @@ class CurrentWeatherViewModel(
             _status.value = initDefaultWeatherUseCase.initDefaultWeather()
         }
     }
+
 }

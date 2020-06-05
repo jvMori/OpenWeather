@@ -5,6 +5,7 @@ import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 val networkModule = module {
     factory { provideInterceptor() }
@@ -23,6 +24,8 @@ fun provideRetrofit(client: OkHttpClient): Retrofit {
 fun provideOkHttpClient (interceptor: Interceptor): OkHttpClient {
     return OkHttpClient.Builder()
         .addInterceptor(interceptor)
+        .readTimeout(10, TimeUnit.SECONDS)
+        .connectTimeout(10, TimeUnit.SECONDS)
         .retryOnConnectionFailure(true)
         .build()
 }

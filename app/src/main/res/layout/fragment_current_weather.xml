@@ -16,7 +16,7 @@
                     android:layout_height="wrap_content" android:visibility="visible"/>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <include layout="@layout/loading_layout" android:id="@+id/loadingLayout"/>
+        <include layout="@layout/loading_layout" android:id="@+id/loadingLayout" android:visibility="gone"/>
 
         <include layout="@layout/error_layout" android:id="@+id/errorLayout" android:visibility="gone"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -38,18 +38,18 @@ class CurrentWeatherFragment : BindingFragment(R.layout.fragment_current_weather
             this.requireContext(),
             listOf()
         )
+        swipeToRefreshListener()
     }
 
     override fun onStart() {
         super.onStart()
         observeWeatherList()
         setupOnWeatherClickListeners()
-        swipeToRefreshListener()
         displayActionStatus()
     }
 
     private fun observeWeatherList() {
-        viewModel.fetchWeather().observe(this, Observer {
+        viewModel.fetchWeather().observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Resource.Status.LOADING -> showProgressBar()
                 Resource.Status.SUCCESS -> {
@@ -91,7 +91,7 @@ class CurrentWeatherFragment : BindingFragment(R.layout.fragment_current_weather
     }
 
     private fun displayActionStatus() {
-        viewModel.status.observe(this, Observer {
+        viewModel.status.observe(viewLifecycleOwner, Observer {
             when (it.data) {
                 Actions.Refresh -> showRefreshStatus(it.status)
                 Actions.InitDefaultWeather -> showInitWeatherStatus(it.status)
@@ -158,7 +158,7 @@ class CurrentWeatherFragment : BindingFragment(R.layout.fragment_current_weather
     }
 
     private fun showErrorMessage() {
-        Snackbar.make(this.requireView(), getString(R.string.read_weather_fail), Snackbar.LENGTH_LONG).show()
+        Snackbar.make(this.requireView(), getString(R.string.read_weather_fail), Snackbar.LENGTH_SHORT).show()
     }
 
     private fun showInitError() {
