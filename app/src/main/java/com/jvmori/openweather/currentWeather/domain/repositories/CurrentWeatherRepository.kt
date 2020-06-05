@@ -1,7 +1,7 @@
 package com.jvmori.openweather.currentWeather.domain.repositories
 
-import com.jvmori.openweather.common.data.Actions
-import com.jvmori.openweather.common.data.Resource
+import com.jvmori.openweather.common.util.Actions
+import com.jvmori.openweather.common.data.network.Resource
 import com.jvmori.openweather.currentWeather.domain.entities.CurrentWeatherEntity
 import kotlinx.coroutines.flow.Flow
 

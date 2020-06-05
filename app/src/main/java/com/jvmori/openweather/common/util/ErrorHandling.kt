@@ -1,6 +1,7 @@
-package com.jvmori.openweather.common.data
+package com.jvmori.openweather.common.util
 
 import android.accounts.NetworkErrorException
+import com.jvmori.openweather.common.data.network.Resource
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException

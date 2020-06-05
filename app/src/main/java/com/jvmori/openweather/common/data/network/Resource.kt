@@ -1,4 +1,4 @@
-package com.jvmori.openweather.common.data
+package com.jvmori.openweather.common.data.network
 
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable

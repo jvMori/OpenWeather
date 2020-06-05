@@ -1,4 +1,4 @@
-package com.jvmori.openweather.common.data
+package com.jvmori.openweather.common.data.local
 
 import androidx.room.Database
 import androidx.room.Room

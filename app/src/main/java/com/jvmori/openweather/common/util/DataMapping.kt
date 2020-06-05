@@ -1,4 +1,4 @@
-package com.jvmori.openweather.common.data
+package com.jvmori.openweather.common.util
 
 import com.jvmori.openweather.currentWeather.data.local.CurrentWeatherData
 import com.jvmori.openweather.currentWeather.data.network.response.CurrentWeatherResponse

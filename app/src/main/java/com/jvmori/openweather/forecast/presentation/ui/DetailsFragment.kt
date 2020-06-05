@@ -7,7 +7,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.jvmori.openweather.R
-import com.jvmori.openweather.common.data.Resource
+import com.jvmori.openweather.common.data.network.Resource
 import com.jvmori.openweather.common.presentation.ui.BindingFragment
 import com.jvmori.openweather.currentWeather.data.ui.CurrentWeatherUI
 import com.jvmori.openweather.currentWeather.domain.entities.Coordinates

@@ -1,4 +1,4 @@
-package com.jvmori.openweather.common.data
+package com.jvmori.openweather.common.util
 
 enum class Actions {
     InitDefaultWeather,

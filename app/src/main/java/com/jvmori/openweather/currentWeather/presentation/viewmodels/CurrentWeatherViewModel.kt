@@ -1,8 +1,8 @@
 package com.jvmori.openweather.currentWeather.presentation.viewmodels
 
 import androidx.lifecycle.*
-import com.jvmori.openweather.common.data.Actions
-import com.jvmori.openweather.common.data.Resource
+import com.jvmori.openweather.common.util.Actions
+import com.jvmori.openweather.common.data.network.Resource
 import com.jvmori.openweather.currentWeather.domain.entities.CurrentWeatherEntity
 import com.jvmori.openweather.currentWeather.domain.usecases.FetchNewWeatherUseCase
 import com.jvmori.openweather.currentWeather.domain.usecases.FetchWeatherListUseCase

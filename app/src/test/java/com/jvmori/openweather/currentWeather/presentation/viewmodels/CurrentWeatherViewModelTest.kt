@@ -2,7 +2,7 @@ package com.jvmori.openweather.currentWeather.presentation.viewmodels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.jvmori.openweather.common.data.Resource
+import com.jvmori.openweather.common.data.network.Resource
 import com.jvmori.openweather.currentWeather.domain.entities.Coordinates
 import com.jvmori.openweather.currentWeather.domain.entities.CurrentWeatherEntity
 import com.jvmori.openweather.currentWeather.domain.usecases.FetchNewWeatherUseCase

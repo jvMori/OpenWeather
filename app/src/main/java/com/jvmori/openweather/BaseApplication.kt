@@ -1,7 +1,7 @@
 package com.jvmori.openweather
 
 import android.app.Application
-import com.jvmori.openweather.common.data.databaseModule
+import com.jvmori.openweather.common.data.local.databaseModule
 import com.jvmori.openweather.common.presentation.di.networkModule
 import com.jvmori.openweather.currentWeather.presentation.di.currentWeatherModule
 import com.jvmori.openweather.forecast.presentation.di.detailsModule

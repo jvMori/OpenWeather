@@ -1,7 +1,7 @@
 package com.jvmori.openweather.forecast.domain.repositories
 
-import com.jvmori.openweather.common.data.Resource
-import com.jvmori.openweather.common.data.mapToEntity
+import com.jvmori.openweather.common.data.network.Resource
+import com.jvmori.openweather.common.util.mapToEntity
 import com.jvmori.openweather.currentWeather.domain.entities.Coordinates
 import com.jvmori.openweather.forecast.data.network.response.ForecastResponse
 import com.jvmori.openweather.forecast.data.repositories.ForecastRepositoryImpl

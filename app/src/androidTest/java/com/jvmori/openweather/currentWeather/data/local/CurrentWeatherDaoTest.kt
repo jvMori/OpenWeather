@@ -2,7 +2,7 @@ package com.jvmori.openweather.currentWeather.data.local
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
-import com.jvmori.openweather.common.data.WeatherDatabase
+import com.jvmori.openweather.common.data.local.WeatherDatabase
 import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.asExecutor
 import kotlinx.coroutines.flow.map

@@ -1,6 +1,6 @@
 package com.jvmori.openweather.currentWeather.data.repositories
 
-import com.jvmori.openweather.common.data.Resource
+import com.jvmori.openweather.common.data.network.Resource
 import com.jvmori.openweather.currentWeather.data.local.CurrentWeatherData
 import com.jvmori.openweather.currentWeather.data.network.response.CurrentWeatherResponse
 import com.jvmori.openweather.currentWeather.data.network.response.Weather

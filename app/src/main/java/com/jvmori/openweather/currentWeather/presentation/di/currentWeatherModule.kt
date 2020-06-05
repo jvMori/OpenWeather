@@ -1,6 +1,6 @@
 package com.jvmori.openweather.currentWeather.presentation.di
 
-import com.jvmori.openweather.common.data.WeatherDatabase
+import com.jvmori.openweather.common.data.local.WeatherDatabase
 import com.jvmori.openweather.currentWeather.data.local.CurrentWeatherDao
 import com.jvmori.openweather.currentWeather.data.local.CurrentWeatherLocalDataSourceImpl
 import com.jvmori.openweather.currentWeather.data.network.CurrentWeatherApi

@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jvmori.openweather.R
-import com.jvmori.openweather.common.presentation.ui.IOnClickListener
 import com.jvmori.openweather.currentWeather.domain.entities.CurrentWeatherEntity
 
 class WeatherAdapter(
