@@ -6,6 +6,9 @@ import com.jvmori.openweather.currentWeather.data.ui.CoordinatesUI
 import com.jvmori.openweather.currentWeather.data.ui.CurrentWeatherUI
 import com.jvmori.openweather.currentWeather.domain.entities.Coordinates
 import com.jvmori.openweather.currentWeather.domain.entities.CurrentWeatherEntity
+import com.jvmori.openweather.forecast.data.network.response.ForecastResponse
+import com.jvmori.openweather.forecast.domain.entities.DetailWeatherEntity
+import com.jvmori.openweather.forecast.domain.entities.Forecast
 
 fun CurrentWeatherEntity.mapToUI(): CurrentWeatherUI = CurrentWeatherUI(
     CoordinatesUI(this.coordinates.lat, this.coordinates.lon),
@@ -33,3 +36,27 @@ fun CurrentWeatherData.mapToEntity(): CurrentWeatherEntity = CurrentWeatherEntit
     this.iconUrl,
     this.temperature.toInt()
 )
+
+fun ForecastResponse.mapToEntity(): DetailWeatherEntity {
+    return DetailWeatherEntity(
+        this.current.pressure,
+        this.current.humidity,
+        this.current.windSpeed,
+        this.daily.map {
+            try {
+                Forecast(
+                    it.dt.toLong(),
+                    it.weather[0].main,
+                    it.weather[0].icon
+                )
+            } catch (e: Exception) {
+                Forecast(
+                    it.dt.toLong(),
+                    "",
+                    ""
+                )
+            }
+        })
+}
+
+
