@@ -2,13 +2,13 @@ package com.jvmori.openweather.forecast.presentation.ui
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.jvmori.openweather.R
 import com.jvmori.openweather.common.data.network.Resource
 import com.jvmori.openweather.common.presentation.ui.BindingFragment
+import com.jvmori.openweather.common.util.mapToUI
 import com.jvmori.openweather.currentWeather.data.ui.CurrentWeatherUI
 import com.jvmori.openweather.currentWeather.domain.entities.Coordinates
 import com.jvmori.openweather.databinding.FragmentDetailsBinding
@@ -22,15 +22,12 @@ class DetailsFragment : BindingFragment(R.layout.fragment_details) {
     private lateinit var detailsBinding: FragmentDetailsBinding
     private val args: DetailsFragmentArgs by navArgs()
     private val viewModel: DetailsViewModel by viewModel()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private lateinit var adapter: ForecastAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         detailsBinding = (binding as FragmentDetailsBinding)
+        adapter = ForecastAdapter.initLinearAdapter(detailsBinding.forecastRv, this.requireContext(), listOf())
     }
 
     override fun onStart() {
@@ -51,12 +48,10 @@ class DetailsFragment : BindingFragment(R.layout.fragment_details) {
     }
 
     private fun showLoading() {}
+    
     private fun showSuccess(data: WeatherDetailsEntity) {
-        detailsBinding.details = data
-        detailsBinding.condition = ConditionData(getString(R.string.wind), resources.getDrawable(R.drawable.wind))
-        detailsBinding.pressure = ConditionData(getString(R.string.pressure), resources.getDrawable(R.drawable.pressure))
-        detailsBinding.humidity = ConditionData(getString(R.string.humidity), resources.getDrawable(R.drawable.humidity))
-        detailsBinding.executePendingBindings()
+        bindView(data)
+        adapter.submitItems(data.dailyForecast.mapToUI())
     }
 
     private fun showError() {}
@@ -68,5 +63,15 @@ class DetailsFragment : BindingFragment(R.layout.fragment_details) {
             //show error page
             null
         }
+    }
+
+    private fun bindView(data: WeatherDetailsEntity) {
+        detailsBinding.details = data
+        detailsBinding.condition = ConditionData(getString(R.string.wind), resources.getDrawable(R.drawable.wind))
+        detailsBinding.pressure =
+            ConditionData(getString(R.string.pressure), resources.getDrawable(R.drawable.pressure))
+        detailsBinding.humidity =
+            ConditionData(getString(R.string.humidity), resources.getDrawable(R.drawable.humidity))
+        detailsBinding.executePendingBindings()
     }
 }
