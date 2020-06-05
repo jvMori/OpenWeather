@@ -1,8 +1,8 @@
 package com.jvmori.openweather.currentWeather.presentation.viewmodels
 
 import androidx.lifecycle.*
-import com.jvmori.openweather.common.util.Actions
 import com.jvmori.openweather.common.data.network.Resource
+import com.jvmori.openweather.common.util.Actions
 import com.jvmori.openweather.currentWeather.domain.entities.CurrentWeatherEntity
 import com.jvmori.openweather.currentWeather.domain.usecases.FetchNewWeatherUseCase
 import com.jvmori.openweather.currentWeather.domain.usecases.FetchWeatherListUseCase
@@ -27,7 +27,7 @@ class CurrentWeatherViewModel(
     fun addNewWeather(city: String) {
         viewModelScope.launch {
             _status.value = Resource.loading(Actions.AddNewWeather)
-            val data  = addNewWeatherUseCase.fetchCurrentWeather(city)
+            val data = addNewWeatherUseCase.fetchCurrentWeather(city)
             _status.value = data
         }
     }
@@ -44,6 +44,10 @@ class CurrentWeatherViewModel(
             _status.value = Resource.loading(Actions.InitDefaultWeather)
             _status.value = initDefaultWeatherUseCase.initDefaultWeather()
         }
+    }
+
+    fun clearStatus() {
+        _status.value = Resource.loading(Actions.Empty)
     }
 
 }
