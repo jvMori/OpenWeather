@@ -11,8 +11,3 @@ fun bindImage(imageView: ImageView, url: String) {
         crossfade(true)
     }
 }
-
-@BindingAdapter("loadText")
-fun bindText(view: TextView, value: String) {
-    view.text = value
-}

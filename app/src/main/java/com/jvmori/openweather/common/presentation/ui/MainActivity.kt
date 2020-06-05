@@ -11,7 +11,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private val weatherViewModel: CurrentWeatherViewModel by viewModel<CurrentWeatherViewModel>()
+    private val weatherViewModel: CurrentWeatherViewModel by viewModel()
 
     private val navController by lazy { findNavController(this, R.id.navHostFragment) }
     private val appBarConfiguration by lazy {

@@ -11,7 +11,7 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class AddNewCityDialog : DialogFragment() {
 
-    private val viewModel: CurrentWeatherViewModel by sharedViewModel<CurrentWeatherViewModel>()
+    private val viewModel: CurrentWeatherViewModel by sharedViewModel()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         activity?.let {

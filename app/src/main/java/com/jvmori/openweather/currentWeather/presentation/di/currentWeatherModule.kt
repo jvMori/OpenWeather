@@ -23,7 +23,7 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 
 val currentWeatherModule = module {
-    single<CurrentWeatherDao> { (get() as WeatherDatabase).currentWeatherDao() }
+    single { (get() as WeatherDatabase).currentWeatherDao() }
     single<CurrentWeatherApi> { (get() as Retrofit).create(CurrentWeatherApi::class.java) }
     single<CurrentWeatherLocalDataSource> { CurrentWeatherLocalDataSourceImpl(dao = get()) }
     single<CurrentWeatherRemoteDataSource> { CurrentWeatherRemoteDataSourceImpl(weatherApi = get()) }

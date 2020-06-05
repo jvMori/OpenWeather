@@ -22,7 +22,7 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 class CurrentWeatherFragment : BindingFragment(R.layout.fragment_current_weather) {
 
     private lateinit var currentWeatherBinding: FragmentCurrentWeatherBinding
-    private val viewModel: CurrentWeatherViewModel by sharedViewModel<CurrentWeatherViewModel>()
+    private val viewModel: CurrentWeatherViewModel by sharedViewModel()
     private lateinit var adapter: WeatherAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
