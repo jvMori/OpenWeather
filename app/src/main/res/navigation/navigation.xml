@@ -8,6 +8,8 @@
               android:label="CurrentWeatherFragment">
         <action android:id="@+id/action_currentWeatherFragment_to_addNewCityDialog"
                 app:destination="@id/addNewCityDialog"/>
+        <action android:id="@+id/action_currentWeatherFragment_to_detailsFragment"
+                app:destination="@id/detailsFragment"/>
     </fragment>
     <dialog android:id="@+id/addNewCityDialog"
               android:name="com.jvmori.openweather.currentWeather.presentation.ui.AddNewCityDialog"
@@ -15,4 +17,11 @@
         <action android:id="@+id/action_addNewCityDialog_to_currentWeatherFragment"
                 app:destination="@id/currentWeatherFragment"/>
     </dialog>
+    <fragment android:id="@+id/detailsFragment"
+              android:name="com.jvmori.openweather.forecast.presentation.DetailsFragment"
+              android:label="Forecast">
+        <argument android:name="currentWeather"
+                  app:argType="com.jvmori.openweather.currentWeather.data.ui.CurrentWeatherUI" app:nullable="true"
+                  android:defaultValue="@null"/>
+    </fragment>
 </navigation>
