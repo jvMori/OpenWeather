@@ -22,10 +22,10 @@ class AddNewCityDialog : DialogFragment() {
                 .setTitle("")
                 .setNegativeButton(
                     getString(R.string.cancel)
-                ) { dialog, which -> }
+                ) { _, _ -> }
                 .setPositiveButton(
                     getString(R.string.add)
-                ) { dialog, which ->
+                ) { _, _ ->
                     val city = view.city.text.toString().trim().toLowerCase()
                     if (city.isNotEmpty())
                         viewModel.addNewWeather(city)
