@@ -7,7 +7,7 @@ import coil.api.load
 
 @BindingAdapter("loadImage")
 fun bindImage(imageView: ImageView, url: String) {
-    imageView.load("http://openweathermap.org/img/wn/${url}@2x.png") {
+    imageView.load("https://openweathermap.org/img/wn/${url}@2x.png") {
         crossfade(true)
     }
 }
