@@ -1,6 +1,6 @@
 package com.jvmori.openweather.forecast.domain.entities
 
-data class DetailWeatherEntity(
+data class WeatherDetailsEntity(
     val pressure: Int,
     val humidity: Int,
     val windSpeed: Double,

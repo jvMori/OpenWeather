@@ -7,7 +7,7 @@ import com.jvmori.openweather.currentWeather.data.ui.CurrentWeatherUI
 import com.jvmori.openweather.currentWeather.domain.entities.Coordinates
 import com.jvmori.openweather.currentWeather.domain.entities.CurrentWeatherEntity
 import com.jvmori.openweather.forecast.data.network.response.ForecastResponse
-import com.jvmori.openweather.forecast.domain.entities.DetailWeatherEntity
+import com.jvmori.openweather.forecast.domain.entities.WeatherDetailsEntity
 import com.jvmori.openweather.forecast.domain.entities.Forecast
 
 fun CurrentWeatherEntity.mapToUI(): CurrentWeatherUI = CurrentWeatherUI(
@@ -37,8 +37,8 @@ fun CurrentWeatherData.mapToEntity(): CurrentWeatherEntity = CurrentWeatherEntit
     this.temperature.toInt()
 )
 
-fun ForecastResponse.mapToEntity(): DetailWeatherEntity {
-    return DetailWeatherEntity(
+fun ForecastResponse.mapToEntity(): WeatherDetailsEntity {
+    return WeatherDetailsEntity(
         this.current.pressure,
         this.current.humidity,
         this.current.windSpeed,

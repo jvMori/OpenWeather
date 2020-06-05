@@ -4,9 +4,9 @@ import com.jvmori.openweather.common.data.Resource
 import com.jvmori.openweather.common.data.mapToEntity
 import com.jvmori.openweather.currentWeather.domain.entities.Coordinates
 import com.jvmori.openweather.forecast.data.network.response.ForecastResponse
+import com.jvmori.openweather.forecast.data.repositories.ForecastRepositoryImpl
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
-import org.junit.BeforeClass
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito
@@ -22,7 +22,8 @@ class ForecastRepositoryImplTest {
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        repository = ForecastRepositoryImpl(dataSource)
+        repository =
+            ForecastRepositoryImpl(dataSource)
     }
 
     @Test
